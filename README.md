@@ -2,7 +2,7 @@
 
 
 
-Your own path, your own rhythm.
+For the glory of Myself
 
 
 
