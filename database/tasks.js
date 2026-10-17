@@ -36,3 +36,9 @@ export async function createTable(database){
             done INTEGER NOT NULL DEFAULT 0);
         `)
 }
+
+export async function updateEditTask(database, updatedTitle, taskId){
+    return await database.runAsync(`
+            UPDATE tasks SET title = ? WHERE id = ?
+        `, updatedTitle, taskId)
+}
