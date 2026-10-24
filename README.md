@@ -1,193 +1,113 @@
-# YouRHa — Your App, Your Harmony
+YouRHa
+A personal task manager and music companion, built for a calm, Japanese-minimal experience.
 
-> For the glory of Myself
+YouRHa is a personal, local-first mobile app project built with React Native and Expo. Its visual direction uses warm neutrals and natural colors, with a simple task list as the primary task-management experience. The project is also a learning exercise: features are implemented step by step by the project owner, with an emphasis on understanding the JavaScript and React Native concepts behind the code.
+Current status: Task Manager CRUD and local persistence are implemented and have passed the reported manual regression checks. UI polish is in progress. YouTube search/playback, Focus, Katalon automation, and final release checks are not yet complete.
 
-YouRHa is a personal mobile application designed to bring daily task management and music into one calm, cozy space. Inspired by Japanese minimalism and personal philosophies of finding one's own path, YouRHa aims to make everyday routines feel more intentional, comfortable, and personal.
+Last updated: 24 October 2026
+Product direction
+- Tasks: The primary screen uses a mobile-friendly list of task cards rather than a desktop-style multi-column Kanban layout.
+- Focus: A planned space for focus-oriented work and productivity features.
+- Music: Planned YouTube video search and playback through an official embedded player where available.
+- More: Planned supporting utilities such as Progress & Statistics, Appearance, Data & Backup, and About YouRHa.
+- Task details: A task description/detail view is planned. Whether users open it with a long press, a tap, or an expandable card will be finalized during UI implementation.
+The visual direction is Japanese minimal: warm ivory, cream, wood-brown, and muted natural greens. Color values can be adjusted during design work; this README does not prescribe a final palette.
+Technology stack
+Technology	Purpose	Current version / status
+React Native	Mobile UI	0.86.3
+Expo	App development and runtime	57.0.27
+JavaScript	Application code	In use
+expo-sqlite	Local task storage	57.0.4
+expo-status-bar	Status bar styling	57.0.1
+Katalon Studio	Planned Android/mobile automation	Not set up yet
+YouTube Data API + official embedded player	Planned video search and playback	Not integrated yet
 
 
-
-## Table of Contents
-
-- [Vision & Philosophy](#vision--philosophy)
-- [Core Features](#core-features)
-- [Design Direction](#design-direction)
-- [Technology Stack](#technology-stack)
-- [Project Status](#project-status)
-- [Getting Started](#getting-started)
-- [Development Roadmap](#development-roadmap)
-- [Testing Strategy](#testing-strategy)
-- [Project Principles](#project-principles)
-
-## Vision & Philosophy
-
-YouRHa is a personal space for managing responsibilities without turning everyday life into a productivity competition.
-
-Its concept is inspired by:
-
-- **Dokkōdō:** an inspiration for walking one's own path and making independent choices.
-- **Ikigai:** an inspiration for reflecting on purpose and meaningful everyday activities.
-- **NieR:Automata:** a creative reference for personal journeys, identity, and the possibility of beginning again.
-
-These references inform the project's creative direction; YouRHa is an independent project with its own visual identity and product design.
-
-The central idea is simple: you are more than the tasks you complete. You can work, listen to music, take a break, and start again at your own pace.
-
-## Core Features
-
-### Daily Tasks
-- Create tasks with a title and optional details.
-- View a list of tasks.
-- Update task information.
-- Mark tasks as completed or incomplete.
-- Delete tasks with appropriate confirmation.
-- Preserve task data locally using SQLite.
-
-### Music Corner
-- Search for music videos by title or artist.
-- Display search results and relevant video information.
-- Play selected videos through the official embedded YouTube player.
-- Explore a local list of favorites, if implemented.
-
-Search and playback require an internet connection. This project plans to use the YouTube Data API and an embedded player; it does not claim to provide an independent YouTube Music streaming service.
-
-### Personal Experience
-- A calm, Japanese-minimalist interface.
-- A simple daily overview.
-- A comfortable experience without unnecessary productivity pressure.
-
-## Design Direction
-
-YouRHa follows a cozy Japanese-minimalist visual language.
-
-| Color | Hex | Intended use |
-|---|---|---|
-| Ivory | `#F7F4ED` | Main background |
-| Natural Wood | `#B8A084` | Warm accents and surfaces |
-| Soft Sage | `#AAB6A0` | Primary accents and task status |
-| Soft Charcoal | `#393A34` | Main text and strong contrast |
-| Muted Clay | `#C58D6D` | Occasional secondary accents |
-
-Design principles:
-- Use whitespace to keep screens calm and readable.
-- Prefer restrained colors, simple shapes, and consistent spacing.
-- Make primary actions easy to understand.
-- Communicate unfinished tasks neutrally.
-- Prefer reusable components over duplicated UI code.
-
-These colors are the initial design palette and may be refined during implementation.
-
-## Technology Stack
-
-| Technology | Purpose |
-|---|---|
-| React Native | Cross-platform mobile UI |
-| Expo | Development tooling and application runtime |
-| JavaScript | Application logic and learning foundation |
-| SQLite via `expo-sqlite` | Local task storage |
-| YouTube Data API | Planned video search |
-| YouTube embedded player | Planned in-app video playback |
-| Katalon Studio | Planned Android automation testing |
-| Git and GitHub | Version control and project history |
-
-The initial target platform is Android. A custom backend, user accounts, and cloud synchronization are outside the initial MVP scope.
-
-## Project Status
-
-**Current phase: Early development and learning**
-
-The project has been initialized with Expo and runs through Expo Go on an Android emulator.
-
-Current learning progress:
-- A basic React Native screen.
-- A task array rendered with `.map()`.
-- Unique task identifiers using `key`.
-- State-based task completion toggling.
-- A prototype for adding and removing tasks.
-- Initial exploration of SQLite database setup.
-
-The in-memory task interactions and SQLite persistence are separate concerns. Full, verified CRUD persistence in SQLite is still under development. YouTube integration and Katalon automation have not yet been completed.
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js and npm.
-- Git.
-- VS Code or another code editor.
-- Android Studio with an Android emulator, or a compatible Android device.
-
-### Installation
-
-Clone the repository if you have not already checked it out:
-
-```bash
-git clone <YOUR_GITHUB_REPOSITORY_URL>
-cd YouRHa
-```
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Start Expo in Expo Go mode:
-
-```bash
-npx expo start --go
-```
-
-With an Android emulator running, press `a` in the Expo terminal to open the application.
-
-For diagnostics:
-
-```bash
-npx expo-doctor
-```
-
-Use the package versions and instructions associated with the Expo SDK installed in this repository.
-
-## Development Roadmap
-
-The first development milestone is intentionally small and focused on learning.
-
-| Day | Focus | Expected outcome |
-|---|---|---|
-| 1 | Render a task list | Understand arrays, objects, JSX, and `.map()` |
-| 2 | Toggle task completion | Understand React state and user interaction |
-| 3 | Add tasks | Learn controlled inputs and validation |
-| 4 | Delete tasks | Learn filtering, confirmation, and empty states |
-| 5 | SQLite persistence | Store and retrieve task data locally |
-| 6 | UI polish and testing | Verify key flows and explain the implementation |
-
-The music feature follows after the task-management foundation is stable. The six-day plan is a learning target, not a guarantee that every feature will be finished within the available time.
-
-## Testing Strategy
-
-YouRHa will use Katalon Studio for Android automation testing.
-
-Planned scenarios include:
-- Create a task with valid input.
-- Reject an empty task title.
-- Read task details.
-- Update an existing task.
-- Toggle completion status.
+Version information above reflects the npm ls expo react-native output reported during development. Recheck the installed packages before making version-sensitive changes.
+Implemented features
+Task Manager
+- Create a task and store it in the local SQLite database yourha.db.
+- Read saved tasks from SQLite when the app starts.
+- Edit a task's title without creating a second task record.
+- Mark a task as completed or incomplete.
 - Delete a task.
-- Cancel a deletion.
-- Verify task persistence after restarting the app.
-- Search for and play a YouTube video when the integration is available.
+- Reject empty task titles after trimming whitespace and show a validation message.
+- Display an empty-state message when there are no tasks.
+- Show which task is currently being edited and allow the user to cancel edit mode.
+- Automatically add a numeric suffix to duplicate titles, such as Study → Study (1) → Study (2), for both add and edit flows.
+- Retain task data and completion state across app restarts, as verified in manual testing.
+Early UI polish
+- Scrollable task content has been added.
+- The task form has custom styling for the input, primary submit button, and cancel button.
+- The primary button has a pressed-state visual effect.
+- The overall layout and the TaskItem card design are still being polished.
+Current UI and implementation status
+The main Task Manager flows are in place, but the app is not yet release-ready. The following work remains:
+- Finish the TaskItem visual design and consistent spacing between task cards and their action buttons.
+- Add a clear loading state while SQLite is initializing, so loading is not confused with the empty state.
+- Extend database error handling to all operations (add/edit, toggle completion, and delete) and provide clear feedback if an operation fails.
+- Consider a delete confirmation to reduce accidental deletion.
+- Check keyboard behavior and scrolling on smaller screens.
+- Add basic accessibility labels/roles and stable testID values for automated tests.
+- Remove unused code/imports after reviewing the project (for example, the earlier initialTasks array if it remains unused).
+- Run project health checks and record their actual results before release.
+Development setup
+Prerequisites
+- Node.js and npm
+- Android Studio / Android Emulator or a supported Android device
+- The Android SDK and ADB configured if running on a local Android emulator/device
+Install dependencies
+From the project root:
+npm install
+Start the app on Android
+Start an Android emulator or connect a device, then run:
+npx expo start --android
+If Metro is already running, avoid starting multiple dev servers on different ports. Confirm the target device is available with adb devices if Expo cannot connect to Android.
+Project structure
+YouRHa/
+├── assets/                 # App assets
+├── components/
+│   ├── TaskFrom.jsx        # Shared add/edit task form
+│   └── TaskItem.jsx        # Task row and task actions
+├── database/
+│   └── tasks.js            # SQLite table and task queries
+├── App.js                  # App state, SQLite setup, task flows, and layout
+├── AGENTS.md               # Repository and coding-tutor guidelines
+├── README.md
+└── package.json
+The tree reflects the structure discussed during development; confirm it against the current working copy if files have since moved or been renamed.
+Data and privacy notes
+- Task data is stored locally in SQLite; cloud synchronization and multi-user accounts are not part of the current scope.
+- Clearing the app's storage or uninstalling the app may remove local task data. Backup/export is planned, not implemented.
+- Do not commit API keys, tokens, or other secrets when the YouTube integration is added. Configure and restrict the key appropriately and monitor API quota.
+Testing status
+The project owner reported that these manual checks passed:
+- [x] Add a task and confirm that it remains after closing and reopening the app.
+- [x] Toggle completion and confirm that the status and completed count persist after restart.
+- [x] Edit a task and confirm that the existing task changes rather than a new task being added; verify persistence after restart.
+- [x] Delete a task and confirm that it does not reappear after restart and other tasks remain.
+- [x] Submit an empty title and confirm that validation appears without adding a task.
+- [x] Add duplicate titles and confirm automatic numbering.
+- [x] Edit a task to a duplicate title and confirm that the same record is updated with an available suffix.
+These are reported manual test results, not automated Katalon results. The automated suite has not been implemented or verified yet.
 
-Each test should include preconditions, test steps, expected results, actual results, and a verifiable assertion. Test outcomes must be recorded from real executions rather than assumed in advance.
-
-## Project Principles
-
-1. **Learn before automating:** understand the code before relying on generated implementations.
-2. **Small, verifiable steps:** complete and test one feature at a time.
-3. **Local-first:** keep personal task data on the device for the initial MVP.
-4. **Respect platform requirements:** use supported YouTube APIs and playback methods.
-5. **Use assets responsibly:** prefer open-source assets or resources with clear licenses; verify attribution requirements.
-6. **Keep the identity original:** take inspiration from philosophies and fictional narratives without copying protected game assets or branding.
-
----
-
-YouRHa is a work in progress. The goal is not only to build an application, but to understand how it is designed, implemented, tested, and improved.
+Before release, run the repository's applicable health checks and record the actual output. The planned checks include:
+npx expo lint
+npx expo-doctor
+Use npx tsc --noEmit only if TypeScript is configured in the project. Do not mark a check as passed until it has actually been run.
+Roadmap
+1. Finish Task Manager UX and resilience: polish task cards and form spacing; add loading and comprehensive database error states; consider delete confirmation; verify keyboard and small-screen behavior.
+2. Regression and project health checks: rerun all manual scenarios, run lint/Expo Doctor, remove unused code, inspect the Git diff, and commit a verified change at a time.
+3. Katalon automation: add stable test identifiers, verify locators on the target Android build/device, then automate task CRUD and persistence tests.
+4. YouTube technical spike: verify a real YouTube Data API search and test an eligible video with the official embedded player on Android before building the full music UI.
+5. Music experience: implement search results, video selection, playback, loading, empty, and error states; add automation for these flows.
+6. Focus and More: implement agreed focus-oriented features and supporting utilities after the core task and music experiences are stable.
+7. Finalization: update documentation, retain test evidence, review asset licensing/attribution, prepare an Android demo/build, and complete the final audit.
+YouTube integration boundary
+The planned music feature is YouTube video search and playback through an official embedded player where the selected video supports embedding. It is not a full replacement for the YouTube Music app. The project will not implement audio downloading, ad removal, background playback workarounds, or modifications to the official player's controls.
+Learning workflow
+This is a learning project. The project owner writes and runs the code. Guidance should explain the underlying JavaScript/React Native concept, give one manageable exercise at a time, and review the result before proceeding. Avoid large automatic refactors and add dependencies only when they support a confirmed MVP requirement.
+Related project documents
+- AGENTS.md — repository rules and coding-tutor workflow.
+- docs/DEVELOPMENT_ROADMAP.md — planned development phases and progress checklist, if the roadmap has been copied into the repository's docs/ directory.
+- YouRHa_Product_Technical_Blueprint.docx — product and technical blueprint, if included in the project documentation.
