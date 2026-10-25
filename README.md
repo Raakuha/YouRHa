@@ -1,7 +1,7 @@
 <div align="center">
   <img src="assets/YouRHa Serene Landscape Crest.png" alt="YouRHa app icon" width="112" />
   <h1>YouRHa</h1>
-  <p><strong>For The Glory Of Myself</strong></p>
+  <p><strong>Glory to Myself</strong></p>
   <p>A personal task manager designed to help you stay organized with fewer distractions.</p>
   <p><a href="https://github.com/USERNAME/REPOSITORY/releases/latest/download/YouRHa.apk"><strong>Download YouRHa for Android</strong></a></p>
 </div>
@@ -55,6 +55,6 @@ The task manager is the current usable part of YouRHa. The Music feature is stil
 ---
 
 <div align="center">
-  <p><strong>YouRHa  For The Glory Of Myself.</strong></p>
+  <p><strong>YouRHa, Glory to Myself.</strong></p>
   <p>Stay organized. Keep your attention on what matters.</p>
 </div>
