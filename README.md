@@ -20,7 +20,6 @@ Your tasks are stored locally on your device using SQLite. You do not need to cr
   <img src="docs/screenshots/yourha-preview.png" alt="Current YouRHa app screen" width="320" />
 </p>
 
-The image above is intended to show the current version of YouRHa. To add your own screenshot, capture the app running on your Android phone or emulator, save the image as a PNG named `yourha-preview.png`, and place it in `docs/screenshots/` in the repository. Keep the image path and filename exactly as shown so GitHub can display it in this section. Replace the image when the interface changes significantly.
 
 ## Features
 
@@ -56,6 +55,6 @@ The task manager is the current usable part of YouRHa. The Music feature is stil
 ---
 
 <div align="center">
-  <p><strong>YouRHa — Your app, your harmony.</strong></p>
+  <p><strong>YouRHa  For The Glory Of Myself.</strong></p>
   <p>Stay organized. Keep your attention on what matters.</p>
 </div>
