@@ -1,7 +1,7 @@
 <div align="center">
   <img src="assets/icon.png" alt="YouRHa app icon" width="112" />
   <h1>YouRHa</h1>
-  <p><strong>Your app, your harmony.</strong></p>
+  <p><strong>For The Glory Of Myself</strong></p>
   <p>A personal task manager designed to help you stay organized with fewer distractions.</p>
   <p><a href="https://github.com/USERNAME/REPOSITORY/releases/latest/download/YouRHa.apk"><strong>Download YouRHa for Android</strong></a></p>
 </div>
