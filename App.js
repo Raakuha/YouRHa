@@ -1,22 +1,19 @@
   import { StatusBar } from 'expo-status-bar';
-  import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native';
+  import { StyleSheet, Text, View,  ScrollView } from 'react-native';
   import { useState, useEffect, } from 'react';
   import * as SQLite from 'expo-sqlite'
   import { deleteTask, insertTask , updateTaskDone, getTasks, createTable, updateEditTask} from './database/tasks';
   import TaskItem from './components/TaskItem';
   import TaskFrom  from './components/TaskFrom';
- 
+  import Svg, { Text as SvgText } from 'react-native-svg';
 
-  const initialTasks = [
-    {id: '1', title: 'Create', done: false},
-    {id: '2', title: 'Read', done: false},
-    {id: '3', title: 'Update', done:false},
-    {id: '4', title: 'Delete', done: false},
-
-  ]
+  
   export default function App() {
     const [tasks, setTasks] = useState([]);
+    const [isloading, setLoading] = useState(true);
     const [database, setDatabase] = useState(null);
+    const [databaseError, setDatabaseError] = useState('');
+    const [taskError, setTaskError] = useState('');
     useEffect(() =>{
       async function setupDatabase(){
         try{
@@ -30,6 +27,9 @@
             console.log('Table tasks siap ', rows );
         } catch(error){
           console.error('Gagal menyiapkan database: ', error)
+          setDatabaseError('Gagal memuat tugas, reload coba')
+        }finally{
+          setLoading(false);
         }
       } 
       setupDatabase();
@@ -45,21 +45,27 @@
       
       let  booleanTask = !taskTarget.done
 
-      if(database == null){
-        return
-      }else{
-       await updateTaskDone(database, booleanTask, taskTarget.id)
+      try {
+        if(database == null){
+          return
+        }else{
+         await updateTaskDone(database, booleanTask, taskTarget.id)
+        }
+
+        setTasks((currentTasks) =>
+          currentTasks.map((task) => {
+            if(task.id === taskId){
+              return { ...task, done: booleanTask};
+            }
+            return task;
+           } 
+          ),
+        );
+        setTaskError('');
+      } catch (error) {
+        setTaskError('Tugas gagal selesai')
       }
-      
-      setTasks((currentTasks) =>
-        currentTasks.map((task) => {
-          if(task.id === taskId){
-            return { ...task, done: booleanTask};
-          }
-          return task;
-        } 
-      ),
-    );
+
     }
 
     const completedCount = tasks.filter((task) => task.done).length;
@@ -88,7 +94,7 @@
         return
       }
       if (title === ""){
-        setErrorMessage("Pesan gabisa kosong rak ")
+        setErrorMessage("Isi nama tugasnya dulu")
         return;
       }
 
@@ -129,55 +135,105 @@
       if(database == null){
         return
       }
-      await deleteTask(database, taskId)
-      setTasks((currentTasks) =>
-      currentTasks.filter((task) => task.id !== taskId))
+      try {
+        await deleteTask(database, taskId)
+        setTasks((currentTasks) =>
+        currentTasks.filter((task) => task.id !== taskId))
+        setTaskError('');
+      } catch (error) {
+        setTaskError('Task gagal dihapus')
+      }
       
     }
 
     const taskIsEditing = tasks.find((task) => task.id === editingTask)
     return (
       <View style={styles.container}>
-        <Text>YourHa, For the glory of Myself</Text>
-        <Text>{completedCount} dari {tasks.length} tugas sudah selesai</Text>
+        <ScrollView contentContainerStyle = {styles.content}>  
+                
+          <Svg width="100%" height={50}>           
+            <SvgText
+                x="50%"
+                y={36}
+                textAnchor="middle"
+                fontSize={32}
+                fontWeight="700"
+                fill="none"
+                stroke="#0a0a09"
+                strokeWidth={2}
+                strokeLinejoin="round"
+            >
+                YouRHa
+            </SvgText>
 
+      
+            <SvgText
+                x="50%"
+                y={36}
+                textAnchor="middle"
+                fontSize={32}
+                fontWeight="700"
+                fill="#ffe5cf"
+                stroke="none"
+            >
+                YouRHa
+            </SvgText>
+        </Svg>
+          <Text
+            style = {styles.tagline}
+          >For Glory Of Myself</Text>
+          <Text>{completedCount} dari {tasks.length} tugas sudah selesai</Text>
+  {/* 
+          <TextInput
+            value={newTaskTitle}
+            onChangeText={setNewTaskTitle}
+            placeholder='Masukkan nama Task disini'></TextInput>
 
+          <Pressable onPress={addTask}>
+            <Text>Tambah Tugas</Text>
+          </Pressable> */
+          }
 
-{/* 
-        <TextInput
-          value={newTaskTitle}
-          onChangeText={setNewTaskTitle}
-          placeholder='Masukkan nama Task disini'></TextInput>
-
-        <Pressable onPress={addTask}>
-          <Text>Tambah Tugas</Text>
-        </Pressable> */
-        }
-
-        {editingTask !== null && taskIsEditing && (
-          <Text>Sedang mengedit {taskIsEditing.title}</Text>
-         )
-        }
-        <TaskFrom value ={newTaskTitle} onChangeText = {setNewTaskTitle} onSubmit = {handleTaskSubmit} 
-        buttonLabel = {editingTask !== null ? 'Simpan Perubahan' : 'Tambah Tugas'} isEditing = {editingTask !== null} onCancel = {cancelEditing}></TaskFrom>
-        {
-          errorMessage !== '' && (
-            <Text>{errorMessage}</Text>
+          {editingTask !== null && taskIsEditing && (
+            <Text>Sedang mengedit {taskIsEditing.title}</Text>
           )
-        }
-        {
-          tasks.length === 0 && (
-            <Text> Kamu belum ngelist tugas nih. . . </Text>
+          }
+          <TaskFrom value ={newTaskTitle} onChangeText = {setNewTaskTitle} onSubmit = {handleTaskSubmit} 
+          buttonLabel = {editingTask !== null ? 'Simpan Perubahan' : 'Tambah Tugas'} isEditing = {editingTask !== null} onCancel = {cancelEditing}></TaskFrom>
+          {
+            errorMessage !== '' && (
+              <Text>{errorMessage}</Text>
+            )
+          }
+          { isloading && (
+              <Text>Memuat tugas . . .</Text>
+            )
+          }
+          {!isloading && databaseError !== '' && (
+            <Text> {databaseError}</Text>
+          )}
+          {!isloading && databaseError === '' && tasks.length === 0 && (
+              <Text>Kamu belum punya tugas. </Text>
+            )
+
+
+          }
+          {taskError !== '' && (
+            <Text>{taskError}</Text>
           )
-        }
-        {tasks.map((task) => (
-          <View key={task.id}> 
-          <TaskItem task = {task} onToggle = {() => toggleTask(task.id)} onRemove = {() => removeTask(task.id)} onEdit = {() => startEditingTask(task)} ></TaskItem>
-          <Text></Text>
-          </View>
-        ),
-          
-        )}
+            
+
+
+          }
+          {tasks.map((task) => (
+            <View key={task.id}> 
+            <TaskItem task = {task} onToggle = {() => toggleTask(task.id)} onRemove = {() => removeTask(task.id)} onEdit = {() => startEditingTask(task)} ></TaskItem>
+            <Text></Text>
+            </View>
+          ),
+            
+          )}
+        </ScrollView>
         <StatusBar style="auto" />
 
       </View>
@@ -190,8 +246,17 @@
     container: {
       flex: 1,
       backgroundColor: '#FFFEFA',
-      alignItems: 'center',
-      justifyContent: 'center',
+      alignItems: 'stretch',
+      justifyContent: 'flex-start',
+      paddingHorizontal: 20,
     },
+    content:{
+      paddingVertical: 20,
+
+    },
+    tagline:{
+      textAlign:'center'
+    }
+    
   });
   
