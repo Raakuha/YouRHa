@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/icon.png" alt="YouRHa app icon" width="112" />
+  <img src="assets/YouRHa Serene Landscape Crest.png" alt="YouRHa app icon" width="112" />
   <h1>YouRHa</h1>
   <p><strong>For The Glory Of Myself</strong></p>
   <p>A personal task manager designed to help you stay organized with fewer distractions.</p>
