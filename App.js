@@ -7,8 +7,9 @@
   import TaskForm from './components/TaskForm';
   import { getUniqueTaskTitle } from './utils/taskTitle';
   import Svg, { Text as SvgText } from 'react-native-svg';
+  import * as Crypto from 'expo-crypto'
 
-  
+  const DATABASE_NOT_FOUND = 'Database tidak ditemukan'
   export default function App() {
     const [tasks, setTasks] = useState([]);
     const [isloading, setLoading] = useState(true);
@@ -19,13 +20,13 @@
       async function setupDatabase(){
         try{
           const db = await SQLite.openDatabaseAsync('yourha.db')
-          setDatabase(db)
+         
           await createTable(db)
-           
-            const rows = await getTasks(db)
-            setTasks(rows.map(row => ({id: row.id, title: row.title, done: row.done === 1})))
-            
-            console.log('Table tasks siap ', rows );
+          const rows = await getTasks(db)
+          setTasks(rows.map(row => ({id: row.id, title: row.title, done: row.done === 1})))
+          
+          setDatabase(db)
+          console.log('Table tasks siap ', rows );
         } catch(error){
           console.error('Gagal menyiapkan database: ', error)
           setDatabaseError('Gagal memuat tugas, reload coba')
@@ -39,6 +40,7 @@
     async function toggleTask(taskId){
       const taskTarget = tasks.find((task) => task.id === taskId)
 
+
       
       if(!taskTarget){
         return
@@ -48,6 +50,8 @@
 
       try {
         if(database == null){
+          setTaskError(DATABASE_NOT_FOUND)
+          
           return
         }else{
          await updateTaskDone(database, booleanTask, taskTarget.id)
@@ -88,6 +92,9 @@
 
     async function handleTaskSubmit(){
       if (database == null){
+        
+        setTaskError(DATABASE_NOT_FOUND)
+        console.log('database gagal disiapkan')
         return
       }
 
@@ -109,7 +116,7 @@
         }
   
         const newTask ={
-          id : String(Date.now()),
+          id : Crypto.randomUUID(),
           title: finaleTitle,
           done: false
         };
@@ -128,6 +135,7 @@
     }
     async function removeTask(taskId){
       if(database == null){
+        setTaskError(DATABASE_NOT_FOUND)
         return
       }
       try {
