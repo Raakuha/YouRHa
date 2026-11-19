@@ -5,6 +5,7 @@
   import { deleteTask, insertTask , updateTaskDone, getTasks, createTable, updateEditTask} from './database/tasks';
   import TaskItem from './components/TaskItem';
   import TaskFrom  from './components/TaskFrom';
+  import { getUniqueTaskTitle } from './utils/taskTitle';
   import Svg, { Text as SvgText } from 'react-native-svg';
 
   
@@ -86,22 +87,16 @@
 
 
     async function handleTaskSubmit(){
-      const title = newTaskTitle.trim();
-      let finaleTitle = title;
-      let number = 1;
-
       if (database == null){
         return
       }
-      if (title === ""){
+
+      const finaleTitle = getUniqueTaskTitle(newTaskTitle, tasks, editingTask);
+      if (finaleTitle === null){
         setErrorMessage("Isi nama tugasnya dulu")
         return;
       }
 
-      while(tasks.some((task) => task.title.trim().toLowerCase()  === finaleTitle.trim().toLowerCase() && task.id !== editingTask) ){
-        finaleTitle = `${title} ( ${number} )`
-        number += 1;
-      }
       try {
         if(editingTask !== null){
           await updateEditTask(database, finaleTitle, editingTask);
