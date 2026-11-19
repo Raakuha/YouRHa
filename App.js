@@ -4,7 +4,7 @@
   import * as SQLite from 'expo-sqlite'
   import { deleteTask, insertTask , updateTaskDone, getTasks, createTable, updateEditTask} from './database/tasks';
   import TaskItem from './components/TaskItem';
-  import TaskFrom  from './components/TaskFrom';
+  import TaskForm from './components/TaskForm';
   import { getUniqueTaskTitle } from './utils/taskTitle';
   import Svg, { Text as SvgText } from 'react-native-svg';
 
@@ -193,8 +193,8 @@
             <Text>Sedang mengedit {taskIsEditing.title}</Text>
           )
           }
-          <TaskFrom value ={newTaskTitle} onChangeText = {setNewTaskTitle} onSubmit = {handleTaskSubmit} 
-          buttonLabel = {editingTask !== null ? 'Simpan Perubahan' : 'Tambah Tugas'} isEditing = {editingTask !== null} onCancel = {cancelEditing}></TaskFrom>
+          <TaskForm value ={newTaskTitle} onChangeText = {setNewTaskTitle} onSubmit = {handleTaskSubmit} 
+          buttonLabel = {editingTask !== null ? 'Simpan Perubahan' : 'Tambah Tugas'} isEditing = {editingTask !== null} onCancel = {cancelEditing}></TaskForm>
           {
             errorMessage !== '' && (
               <Text>{errorMessage}</Text>

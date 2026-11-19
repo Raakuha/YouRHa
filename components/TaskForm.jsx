@@ -1,7 +1,7 @@
 import { View, TextInput, Pressable, Text, StyleSheet } from "react-native";
 
 
-export default function TaskFrom(props){
+export default function TaskForm(props){
     return(
         <View>
             <TextInput
