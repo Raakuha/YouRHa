@@ -40,3 +40,6 @@ yarn-error.*
 /ios
 /android
 
+# alat pribadi dan dokumen draft, hanya lokal
+.claude/
+YouRHa_Product_Technical_Blueprint.docx
